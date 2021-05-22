@@ -11,9 +11,7 @@ def room_draw_history(filename):
     with open(filename, "r") as history_text:
         table = []
         for line in history_text:
-
-#Cuyler Hall 322 5/6/19 11:43 AM
-#Cuyler Hall 402 5/6/19 11:44 AM            
+            
     #format info
             line= line.strip().strip('\n')
             space_cnt = 0
@@ -58,9 +56,6 @@ def room_draw_history(filename):
 
     print("completed " + csv_filename)
 
-
-
-    # end function
 
 
 
