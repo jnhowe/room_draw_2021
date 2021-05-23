@@ -13,7 +13,7 @@ def room_draw_history(filename):
         for line in history_text:
             
     #format info
-            line= line.strip().strip('\n')
+            line= line.strip()
             space_cnt = 0
             string = ""
             char_cnt = 0
