@@ -33,7 +33,14 @@ def add_room_draw(filename):
                     elif space_cnt == 3:
                         row["Date/Time"] = string
                         string = ""
-                    elif space_cnt == 5:
+
+                    elif space_cnt ==4 :
+                        string = ""
+
+                    elif space_cnt ==5 :
+                        string += " "
+
+                    elif space_cnt == 6:
                         row["Name"] = string
                         string = ""
                         remaining_characters = line[char_cnt:]
