@@ -71,6 +71,7 @@ def available_rooms(filename):
             string = ""
             char_cnt = 0
             row = {}
+            is_dodge_osborn = False
 
             for c in line:
                 char_cnt += 1
