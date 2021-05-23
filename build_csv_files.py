@@ -74,7 +74,7 @@ def available_rooms(filename):
 
             for c in line:
                 char_cnt += 1
-                if c == " ":
+                if c == " " or c == "\n":
                     space_cnt += 1
                 
                     if space_cnt == 1:
@@ -89,15 +89,31 @@ def available_rooms(filename):
                         row["Type"] = string
                         string = ""
 
-                    elif space_cnt == 4:
-                        row["Size"] = string
-                        string = ""
-
-                    elif c == '\n' and space_cnt == 4 or space_cnt == 5:
+                    elif c == '\n' and space_cnt == 5:
                         row["Affiliation"] = string
                         string = ""
+                        row["Theme"] = None
+                        
+                    elif space_cnt == 4 and c == " ":
+                        row["Size"] = string
+                        string = ""
+                    
+                    elif space_cnt == 6 and c == "\n":
+                        if string != "College":
+                            row["Theme"] = string
+                            string = ""
+                        else:
+                            row["Theme"] = None
+                            string = ""
+                    
+                    elif space_cnt == 5 and c == " ":
+                        row["Affiliation"] = string
+                        string = ""
+
+                    elif space_cnt == 6:
                         remaining_characters = line[char_cnt:]
-                        row["Theme"] = remaining_characters
+                        row["Theme"] = string
+                        string = ""
        
                 else:
                     string += c 
@@ -109,7 +125,7 @@ def available_rooms(filename):
     csv_filename = filename[:-3] + "csv"
 
     with open(csv_filename, newline='',mode='w') as csv_file:
-        fieldnames = ["Building", "Room", "Unit", "Type", "Size", "Affiliation", "Theme"]
+        fieldnames = ["Building", "Room", "Type", "Size", "Affiliation", "Theme"]
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
         writer.writeheader()
