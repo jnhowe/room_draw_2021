@@ -191,7 +191,14 @@ def add_room_draw(filename):
 def main(argv):
     room_draw_history("2019_room_draw_times.txt")
     available_rooms("all_available_rooms.txt")
-    
+    add_room_draw("2021_butler_draw.txt")
+    add_room_draw("2021_independent_draw.txt")
+    add_room_draw("2021_mathey_draw.txt")
+    add_room_draw("2021_spellman_draw.txt")
+    add_room_draw("2021_upperclassmen_draw.txt")
+    add_room_draw("2021_whitman_draw.txt")
+
+
     
 
 if __name__ == '__main__':
