@@ -2,6 +2,7 @@
 from sys import argv, exit, stderr
 from os import path
 import csv
+<<<<<<< HEAD
 
 
 #format info in line
@@ -28,29 +29,61 @@ def format_line(line):
 
             elif space_cnt ==4 :
                 string = ""
+=======
+>>>>>>> b3117e6d9347c8d94ab50d761234fd4ec92819f5
 
-            elif space_cnt ==5 :
-                string += " "
+def room_draw_history(filename):
+    # ensure file is string
+    assert isinstance(filename, str), f"Input of room_draw_history is of type {type(filename)} and not of type string"
+    
+    #open  and read file
+    with open(filename, "r") as history_text:
+        table = []
+        for line in history_text:
+            
+    #format info
+            line= line.strip()
+            space_cnt = 0
+            string = ""
+            char_cnt = 0
+            row = {}
 
-            elif space_cnt == 6:
-                row["Name"] = string
-                string = ""
-                remaining_characters = line[char_cnt:]
-                row["Class"] = remaining_characters
+            for c in line:
+                char_cnt += 1
+                if c == " ":
+                    space_cnt += 1
                 
-        else:
-            string += c
+                    if space_cnt == 1:
+                        row["Building"] = string
+                        string = ""
+    
+                    elif space_cnt == 2:
+                        string = ""
+                    
+                    elif space_cnt == 3:
+                        row["Room"] = string
+                        string = ""
+                        remaining_characters = line[char_cnt:]
+                        row["Date/Time"] = remaining_characters
+                        
+                else:
+                    string += c 
 
-    return row
-
+<<<<<<< HEAD
 
 
 #create csv file using a dictonary representation of data
 def create_csv(filename, table):
+=======
+            table.append(row)
+            
+    # write file to csv
+    
+>>>>>>> b3117e6d9347c8d94ab50d761234fd4ec92819f5
     csv_filename = filename[:-3] + "csv"
 
     with open(csv_filename, newline='',mode='w') as csv_file:
-        fieldnames = ["NetID", "Date/Time", "Name", "Class"]
+        fieldnames = ["Building", "Room", "Date/Time"]
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -121,7 +154,66 @@ def available_rooms(filename):
 
     print("completed " + csv_filename)
 
+<<<<<<< HEAD
 def build_csv_file(filename):
+=======
+#format info in line
+def format_line(line):
+    #961216103 5/25/2021 9:00 10046 Cho Christine 2022
+    #920209092 5/25/2021 9:00 10046 Chen Rachel 2022
+    line = line.strip()
+    space_cnt = 0
+    string = ""
+    char_cnt = 0
+    row = {}
+    for c in line: 
+        char_cnt += 1
+        if c == " ":
+            space_cnt += 1
+                    
+            if space_cnt == 1:
+                row["NetID"] = string
+                string = ""
+
+            elif space_cnt == 3:
+                row["Date/Time"] = string
+                string = ""
+
+            elif space_cnt ==4 :
+                string = ""
+
+            elif space_cnt ==5 :
+                string += " "
+
+            elif space_cnt == 6:
+                row["Name"] = string
+                string = ""
+                remaining_characters = line[char_cnt:]
+                row["Class"] = remaining_characters
+                
+        else:
+            string += c
+
+    return row
+
+#create csv file using a dictonary representation of data
+def create_csv(filename, table):
+    csv_filename = filename[:-3] + "csv"
+
+    with open(csv_filename, newline='',mode='w') as csv_file:
+        fieldnames = ["NetID", "Date/Time", "Name", "Class"]
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for row in table:
+            writer.writerow(row)
+
+    print("completed " + csv_filename)
+
+
+
+def add_room_draw(filename):
+>>>>>>> b3117e6d9347c8d94ab50d761234fd4ec92819f5
     #ensure file is string
     assert isinstance(filename,str), f"Input of add_room_draw is of type {type(filename)} and not of type string"
 
@@ -139,10 +231,21 @@ def build_csv_file(filename):
 def main(argv):
     room_draw_history("2019_room_draw_times.txt")
     available_rooms("all_available_rooms.txt")
+<<<<<<< HEAD
     #ensure the file name is passed as an argument
     assert argv[1] != "", f"A file name should be given as an argument"
     print(argv[1])
     build_csv_file(argv[1])
+=======
+    add_room_draw("2021_butler_draw.txt")
+    add_room_draw("2021_independent_draw.txt")
+    add_room_draw("2021_mathey_draw.txt")
+    add_room_draw("2021_spellman_draw.txt")
+    add_room_draw("2021_upperclassmen_draw.txt")
+    add_room_draw("2021_whitman_draw.txt")
+
+
+>>>>>>> b3117e6d9347c8d94ab50d761234fd4ec92819f5
     
 
 if __name__ == '__main__':
