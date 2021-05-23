@@ -2,6 +2,8 @@
 from sys import argv, exit, stderr
 from os import path
 import csv
+
+
 #format info in line
 def format_line(line):
     #961216103 5/25/2021 9:00 10046 Cho Christine 2022
@@ -41,6 +43,8 @@ def format_line(line):
 
     return row
 
+
+
 #create csv file using a dictonary representation of data
 def create_csv(filename, table):
     csv_filename = filename[:-3] + "csv"
@@ -57,7 +61,7 @@ def create_csv(filename, table):
 
 
 
-def add_room_draw(filename):
+def build_csv_file(filename):
     #ensure file is string
     assert isinstance(filename,str), f"Input of add_room_draw is of type {type(filename)} and not of type string"
 
@@ -80,7 +84,7 @@ def main(argv):
     #ensure the file name is passed as an argument
     assert argv[1] != "", f"A file name should be given as an argument"
     print(argv[1])
-    add_room_draw(argv[1])
+    build_csv_file(argv[1])
     
 
 if __name__ == '__main__':
