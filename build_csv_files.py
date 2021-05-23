@@ -60,6 +60,66 @@ def create_csv(filename, table):
     print("completed " + csv_filename)
 
 
+def available_rooms(filename):
+    # ensure file is string
+    assert isinstance(filename, str), f"Input of available_rooms is of type {type(filename)} and not of type string"
+    
+    #open and read file
+    with open(filename, "r") as available_room_text:
+        table = []
+        for line in available_room_text:
+            
+    #format info
+            space_cnt = 0
+            string = ""
+            char_cnt = 0
+            row = {}
+
+            for c in line:
+                char_cnt += 1
+                if c == " ":
+                    space_cnt += 1
+                
+                    if space_cnt == 1:
+                        row["Building"] = string
+                        string = ""
+    
+                    elif space_cnt == 2:
+                        row["Room"] = string
+                        string = ""
+                    
+                    elif space_cnt == 3:
+                        row["Type"] = string
+                        string = ""
+
+                    elif space_cnt == 4:
+                        row["Size"] = string
+                        string = ""
+
+                    elif c == '\n' and space_cnt == 4 or space_cnt == 5:
+                        row["Affiliation"] = string
+                        string = ""
+                        remaining_characters = line[char_cnt:]
+                        row["Theme"] = remaining_characters
+       
+                else:
+                    string += c 
+
+            table.append(row)
+            
+    # write file to csv
+    
+    csv_filename = filename[:-3] + "csv"
+
+    with open(csv_filename, newline='',mode='w') as csv_file:
+        fieldnames = ["Building", "Room", "Unit", "Type", "Size", "Affiliation", "Theme"]
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for row in table:
+            writer.writerow(row)
+
+    print("completed " + csv_filename)
 
 def build_csv_file(filename):
     #ensure file is string
@@ -75,12 +135,10 @@ def build_csv_file(filename):
 
     #write file to csv
     create_csv(filename, table)
-    
-
-
-
 
 def main(argv):
+    room_draw_history("2019_room_draw_times.txt")
+    available_rooms("all_available_rooms.txt")
     #ensure the file name is passed as an argument
     assert argv[1] != "", f"A file name should be given as an argument"
     print(argv[1])
